@@ -26,9 +26,9 @@ function pxToRem(px){
 
 var theme = getParams('theme');
 var stock = getParams('stock');
-var todayThemeUrl = 'http://13.125.147.26/phps/todayThemeJ';
-var themeUrl = 'http://13.125.147.26/phps/themeNowJ';
-var stockUrl = 'http://13.125.147.26/phps/elementNowJ';
+var todayThemeUrl = 'http://13.124.230.32/phps/todayThemeJ';
+var themeUrl = 'http://13.124.230.32/phps/themeNowJ';
+var stockUrl = 'http://13.124.230.32/phps/elementNowJ';
 var re = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\(\=]/gi;
 var deTheme = decodeURIComponent(theme);
 var deStock = decodeURIComponent(stock);
@@ -46,10 +46,10 @@ $(document).ready(function(){
 
       var json_data = '';
       var valueRate = '';
-  
+
       $.each(data, function(key, value){
         var valueThemeStr = value.theme.replace(re, "");
-        
+
         if (parseFloat(value.rate) > 0) {
           valueRate = '<font class="text-danger">' + value.rate + '</font>';
         }
@@ -59,14 +59,14 @@ $(document).ready(function(){
         else {
           valueRate = '<font>' + value.rate + '</font>';
         }
-  
+
         if (deThemeStr == valueThemeStr){
           json_data += '<a class="list-group-item list-group-item-action active" href="/home/themeStock?theme=' + value.theme + '">';
         }
         else {
           json_data += '<a class="list-group-item list-group-item-action" href="/home/themeStock?theme=' + value.theme + '">';
         }
-  
+
         json_data += '<div class="float-right">';
         json_data += valueRate;
         json_data += '</div>';
@@ -74,7 +74,7 @@ $(document).ready(function(){
         json_data += value.theme;
         json_data += '</div>';
         json_data += '</a>';
-  
+
         return key < 4;
       });
       $('#today-theme-list').append(json_data);
@@ -90,11 +90,11 @@ $(document).ready(function(){
     async: false,
     success: function(data){
       $('#theme-list').empty();
-      
+
       var json_data = '';
       $.each(data, function(key, value){
         var valueThemeStr = value.theme.replace(re, "");
-        
+
         if (deThemeStr == valueThemeStr){
           json_data += '<a class="list-group-item list-group-item-action active" href="/home/themeStock?theme=' + value.theme + '">' + value.theme + '</a>';
         }

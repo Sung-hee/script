@@ -1,5 +1,5 @@
 var _chart;
-var selected = "http://61.72.187.6/attn/maker";
+var selected = "http://13.124.230.32/attn/maker";
 
 // 파라메터 정보가 저장될 오브젝트
 // common.js 같은 모든 페이지에서 로딩되는 js 파일에 넣어두면 됨.
@@ -18,7 +18,7 @@ var getParam = function(key){
 
 var companycode = getParam("name");
 
-$.getJSON("http://61.72.187.6/phps/now?name=" + companycode, function(data){
+$.getJSON("http://13.124.230.32/phps/now?name=" + companycode, function(data){
   var json_data = "";
 
   $.each(data, function(key, value){

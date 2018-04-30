@@ -1,4 +1,4 @@
-var url = "http://13.125.147.26/phps/indexNowJ"
+var url = "http://13.124.230.32/phps/indexNowJ"
 
 $.getJSON(url, function(data){
   var korea = '';
@@ -35,7 +35,7 @@ $(document).ready(function(){
 
 function koreaAjax(){
   $.ajax({
-    url: 'http://13.125.147.26/phps/indexNowJ',
+    url: 'http://13.124.230.32/phps/indexNowJ',
     type: "GET",
     dataType: "json",
     async: true,

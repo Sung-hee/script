@@ -7,7 +7,7 @@ function clearAll(){
   }
 }
 
-var todayThemeUrl = 'http://13.125.147.26/phps/todayThemeJ';
+var todayThemeUrl = 'http://13.124.230.32/phps/todayThemeJ';
 
 $(document).ready(function(){
   clearAll();

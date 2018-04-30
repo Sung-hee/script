@@ -22,7 +22,7 @@ var getParams = function (key) {
 var bot = getParams('bot');
 var type = getParams('type');
 var botStr = bot.replace(" ", "");
-var proStockUrl = 'http://13.125.147.26/phps/botStock';
+var proStockUrl = 'http://13.124.230.32/phps/botStock';
 var height = ($(window).height() * 0.888) - 280;
 
 function proStockGetJson() {

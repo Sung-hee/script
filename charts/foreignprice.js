@@ -6,14 +6,14 @@ function clearAll(){
         if(window.mozCancelAnimationFrame)window.mozCancelAnimationFrame(i); // Firefox
     }
   }
-  
+
   function foreignAjax(){
     $.ajax({
-      url: "http://61.72.187.6/phps/forNowJ",
+      url: "http://13.124.230.32/phps/forNowJ",
       type: "GET",
       dataType: "json",
       async: true,
-      success: function(data){  
+      success: function(data){
         // 코스피
         $.each(data.KOSPI, function(key, value){
           $('#kospi-current').html(value.current);
@@ -22,7 +22,7 @@ function clearAll(){
           $('#kospi-high').html(value.high);
           $('#kospi-low').html(value.low);
           $('#kospi-hours').html(value.hours);
-          
+
           if(parseFloat(value.variance_per) > 0){
             $('#kospi-variance').css("color", "red");
             $('#kospi-variance_per').css("color", "red");
@@ -36,7 +36,7 @@ function clearAll(){
             $('#kospi-variance_per').css("color", "black");
           }
         });
-  
+
         // 코스닥
         $.each(data.KOSDAQ, function(key, value){
             $('#kosdaq-current').html(value.current);
@@ -45,7 +45,7 @@ function clearAll(){
             $('#kosdaq-high').html(value.high);
             $('#kosdaq-low').html(value.low);
             $('#kosdaq-hours').html(value.hours);
-            
+
             if(parseFloat(value.variance) > 0){
               $('#kosdaq-variance').css("color", "red");
               $('#kosdaq-variance_per').css("color", "red");
@@ -106,7 +106,7 @@ function clearAll(){
 						$('#sp500-variance_per').css("color", "black");
 					}
         });
-				
+
 				// 나스닥 100
         $.each(data.nasdaq, function(key, value){
 					$('#nasdaq-current').html(value.current);
@@ -129,7 +129,7 @@ function clearAll(){
 						$('#nasdaq-variance_per').css("color", "black");
 					}
         });
-  
+
         // // 세계주요지수
         // 닛케이
         $.each(data.nikkei, function(key, value){
@@ -153,7 +153,7 @@ function clearAll(){
 						$('#nikkei-variance_per').css("color", "black");
 					}
         });
-				
+
 				// 상하이종합
         $.each(data.ssec, function(key, value){
           $('#ssec-current').html(value.current);
@@ -176,7 +176,7 @@ function clearAll(){
 						$('#ssec-variance_per').css("color", "black");
 					}
         });
-  
+
 				// // 실시간 상품
 				// 금
         $.each(data.gold, function(key, value){
@@ -200,7 +200,7 @@ function clearAll(){
 						$('#gold-variance_per').css("color", "black");
 					}
         });
-	
+
 				// WTI유
         $.each(data.wti, function(key, value){
           $('#wti-current').html(value.current);
@@ -250,7 +250,7 @@ function clearAll(){
       }
     });
   }
-  
+
   $(document).ready(function(){
     clearAll();
 

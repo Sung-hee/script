@@ -16,7 +16,7 @@ var getParam = function(key){
 
 var companycode = getParam("name");
 
-$.getJSON("http://13.125.147.26/phps/now?name=" + companycode, function(data){
+$.getJSON("http://13.124.230.32/phps/now?name=" + companycode, function(data){
   var json_data = "";
 
   $.each(data, function(key, value){

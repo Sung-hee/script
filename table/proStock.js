@@ -22,7 +22,7 @@ var getParams = function (key) {
 var bot = getParams('bot');
 var type = getParams('type');
 var botStr = bot.replace(" ", "");
-var proStockUrl = 'http://13.125.147.26/phps/botStock';
+var proStockUrl = 'http://13.124.230.32/phps/botStock';
 var height = ($(window).height() * 0.888) - 280;
 
 function proStockGetJson() {
@@ -32,7 +32,7 @@ function proStockGetJson() {
 		$('#winning-rate').html(data.bot.winningRate);
 		$('#price-earnings-ratio').html("누적 <span class='text-danger'><big>" + data.bot.priceEarningsRatio + "</big></span> <small>(30거래일기준)</small>");
 		$('#propensity').html(data.bot.propensity);
-		
+
 		$('#capture-stock').empty();
 
 		if (type == "elw") {

@@ -7,7 +7,7 @@ function clearAll() {
 	}
 }
 
-var botListUrl = 'http://13.125.147.26/phps/botList';
+var botListUrl = 'http://13.124.230.32/phps/botList';
 // var botListUrl = 'https://charttest-sungheeek.c9users.io/botList.json';
 
 function botListGetJson() {

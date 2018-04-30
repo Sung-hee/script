@@ -1,5 +1,5 @@
 var _chart;
-var selected = "http://13.125.147.26/phps/giftChart";
+var selected = "http://13.124.230.32/phps/giftChart";
 
 $(function stock(){
   Highcharts.setOptions({

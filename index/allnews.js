@@ -15,7 +15,7 @@ var companycode = getParam("name");
 
 
 $(document).ready(function(){
-  $.getJSON('http://13.125.147.26/phps/allnewsNowJ', function(data){
+  $.getJSON('http://13.124.230.32/phps/allnewsNowJ', function(data){
     var json_data = '';
 
     json_data += '<tbody>'
