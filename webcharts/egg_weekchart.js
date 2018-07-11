@@ -61,11 +61,13 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
       };
       $.getJSON(selected + "?companycode=" + json_data, function(data) {
 
-        // split the data set into ohlc and volume
         var volumeColor = '';
         var ohlc = [],
             volume = [],
-            volumeColor = '',
+            Hsma = [],
+            HsmaSum = [],
+            SsmaSum = [],
+            Ssma = [],
             dataLength = data.length;
 
         for (i = 0; i < dataLength; i++) {
@@ -80,9 +82,37 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
             data[i][0], // the date
             data[i][5] // the volume
           ]);
-          // console.log(volume);
+          Hsma.push([
+            data[i][0],
+            data[i][2]
+          ]);
+          Ssma.push([
+            data[i][0],
+            data[i][3]
+          ])
       }
-      console.log("차트 데이터 저장");
+      var Hresult = 0;
+      var Hcusma = 0;
+      var Sresult = 0;
+      var Scusma = 0;
+      var index = 0;
+      for(var i = Hsma.length-1; i >= 12; i--){
+        for(var j = 1; j < 13; j++){
+          Hcusma += parseFloat(Hsma[i-j][1]);
+          Scusma += parseFloat(Ssma[i-j][1]);
+        }
+        Hresult = (Hcusma / 12) * 1.0988;
+        Hresult = (Math.ceil(Hresult));
+        Hcusma = 0;
+        Sresult = (Scusma / 12) * 0.891;
+        Sresult = (Math.ceil(Sresult));
+        Scusma = 0;
+        HsmaSum.push([Hsma[i][0],Hresult]);
+        SsmaSum.push([Ssma[i][0],Sresult]);
+      }
+      HsmaSum = HsmaSum.reverse();
+      SsmaSum = SsmaSum.reverse();
+
       _chart = new Highcharts.StockChart({
         chart: {
           resetZoomButton: {
@@ -92,7 +122,7 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           },
           zoomType: null,
           // panning을 지워야 웹에서 드래그가 됨 !
-          // panning: false,
+          panning: false,
           renderTo: 'container',
           events: {
             redraw: redraw,
@@ -126,11 +156,11 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
                   }
 
                   // Choose the color for the volume point based on the candle properties.
-                  var color = 'blue';
+                  var color = '#8ADAA2';
                   if (candle.close > candle.open) {
-                    color = 'red';
+                    color = '#8ADAA2';
                   } else if (candle.close < candle.open) {
-                    color = 'blue';
+                    color = '#8ADAA2';
                   }
                   // Set the volume point's attribute(s) accordingly.
                   attribs.fill = color;
@@ -150,26 +180,23 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           selected: 2,
           // enabled: false,
           inputEnabled: false,
-          buttons: [{
-              type: 'month',
-              count: 3,
-              text: '3개월'
-          }, {
-              type: 'month',
-              count: 6,
-              text: '6개월'
-          }, {
-              type: 'year',
-              count: 1,
-              text: '1년'
-          }],
+          labelStyle: {
+              display:'none'
+          },
+          buttonTheme: {
+            display:'none'
+          },
         },
-        // scrollbar : {
-        //   enabled: false
-      	// },
-        // navigator: {
-        //   enabled: false
-        // },
+        scrollbar: {
+          enabled: false
+        },
+        navigator: {
+          height: 30,
+          series: {
+            color: 'blue',
+            fillColor: 'white'
+          },
+        },
         tooltip: {
           followPointer: false,
           followTouchMove: false,
@@ -177,7 +204,17 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
         xAxis: {
           type: 'datetime',
           height: '100%',
-          tickPixelInterval: 150
+          tickPixelInterval: 150,
+          dateTimeLabelFormats: {
+          millisecond: '%H:%M:%S.%L',
+          second: '%H:%M:%S',
+          minute: '%H:%M',
+          hour: '%H:%M',
+          day: '%m월 %e일',
+          week: '%m월 %e일',
+          month: '%y년 %m월',
+          year: '%Y년'
+        }
         },
         yAxis: [{
           labels: {
@@ -213,7 +250,23 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
             candlestick: {
             lineColor: 'black',
             upColor: 'red',
-            upLineColor: 'black'
+            color: 'blue',
+            upLineColor: 'black',
+            dataGrouping: {
+            dateTimeLabelFormats: {
+              millisecond: ['%m월 %e일, %H:%M:%S.%L', '%A, %b %e, %H:%M:%S.%L', '-%H:%M:%S.%L'],
+              second: ['%m월 %e일, %H:%M:%S', '%A, %b %e, %H:%M:%S', '-%H:%M:%S'],
+              minute: ['%m월 %e일, %H:%M', '%A, %b %e, %H:%M', '-%H:%M'],
+              hour: ['%m월 %e일, %H:%M', '%A, %b %e, %H:%M', '-%H:%M'],
+              day: ['%Y년 %m월 %e일', '%A, %b %e', '-%Y년 %m월 %e일'],
+              week: ['%Y년 %m월 %e일', '%A, %b %e', '-%Y년 %m월 %e일'],
+              month: ['%Y년 %m월', '%B', '-%B %Y'],
+              year: ['%Y년', '%Y', '-%Y']
+            }
+          },
+          tooltip: {
+            pointFormat: '\x3cspan style\x3d"color:{point.color}"/span\x3e \x3c/b\x3e\x3cbr/\x3e시가: \x3cb\x3e{point.open}\x3cbr/\x3e고가: \x3cb\x3e{point.high}\x3cbr/\x3e저가: \x3cb\x3e{point.low}\x3cbr/\x3e종가: \x3cb\x3e{point.close}\x3cbr/\x3e'
+          }
             },
           series: {
             animation: false,
@@ -236,33 +289,23 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           yAxis: 1,
           turboThreshold: Number.MAX_VALUE
         }, {
-          type: 'Hegg12',
           name: '황금추세 상선',
-          linkedTo: 'price',
+          data: HsmaSum,
           zIndex: 1,
           color: '#FF607B',
-          marker: {
-              enabled: false
-          },
-          dataGrouping: {
-            groupPixelWidth: 500
-          }
+          tooltip: {
+               valueDecimals: 0
+           },
         }, {
-          type: 'Legg12',
           name: '황금추세 하선',
-          linkedTo: 'price',
+          data: SsmaSum,
           zIndex: 1,
           color: '#5F7AFF',
-          marker: {
-              enabled: false
-          },
-          dataGrouping: {
-            groupPixelWidth: 500
-          }
+          tooltip: {
+               valueDecimals: 0
+           },
         }]
       });
-        // console.log(volume);
-        console.log("차트그리기");
     });
   });
   function ftest(){
@@ -273,32 +316,35 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
         async: true,
         success: function(data) {
           // split the data set into ohlc and volume
-          var volumeColor = '';
-          var ohlc = [],
-              volume = [],
-              dataLength = data.length;
+          var Hresult = 0;
+          var Hcusma = 0;
+          var Sresult = 0;
+          var Scusma = 0;
+          var index = 0;
 
-          for (i = 0; i < dataLength; i++) {
-            ohlc.push([
-              data[i][0], // the date
-              data[i][1], // open
-              data[i][2], // high
-              data[i][3], // low
-              data[i][4] // close
-            ]);
-            volume.push([
-              data[i][0], // the date
-              data[i][5] // the volume
-            ]);
-            // console.log(volume);
+          for(var i = Hsma.length-1; i >= 12; i--){
+            for(var j = 1; j < 13; j++){
+              Hcusma += parseFloat(Hsma[i-j][1]);
+              Scusma += parseFloat(Ssma[i-j][1]);
+            }
+            Hresult = (Hcusma / 12) * 1.0988;
+            Hresult = (Math.ceil(Hresult));
+            Hcusma = 0;
+            Sresult = (Scusma / 12) * 0.891;
+            Sresult = (Math.ceil(Sresult));
+            Scusma = 0;
+            HsmaSum.push([Hsma[i][0],Hresult]);
+            SsmaSum.push([Ssma[i][0],Sresult]);
           }
+          HsmaSum = HsmaSum.reverse();
+          SsmaSum = SsmaSum.reverse();
           _chart.series[0].setData(ohlc);
           _chart.series[1].setData(volume);
-          // console.log(data);
+          _chart.series[2].setData(HsmaSum);
+          _chart.series[3].setData(SsmaSum);
         },
         cache: false
     });
-    console.log("ajax 호출");
   }
   $(document).ready(function(){
     $('input[name=buttons]').change(function() {
