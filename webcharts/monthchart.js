@@ -147,6 +147,12 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
         rangeSelector: {
           selected: 1,
           inputEnabled: false,
+          labelStyle: {
+            display: 'none'
+          },
+          buttonTheme: {
+            display: 'none'
+          },
           buttons: [{
             type: 'month',
             count: 3,

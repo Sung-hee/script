@@ -327,35 +327,11 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           }
         },
         navigator: {
-          height: 30,
-          series: {
-            color: 'blue',
-            fillColor: 'white'
-          },
+          height: 15
         },
         rangeSelector: {
-          selected: 3,
-          inputEnabled: false,
-          labelStyle: {
-            display: 'none'
-          },
-          buttonTheme: {
-            display: 'none'
-          },
-        xAxis: {
-          type: 'datetime',
-          height: '100%',
-          tickPixelInterval: 150,
-          dateTimeLabelFormats: {
-            millisecond: '%H:%M:%S.%L',
-            second: '%H:%M:%S',
-            minute: '%H:%M',
-            hour: '%H:%M',
-            day: '%m월 %e일',
-            week: '%m월 %e일',
-            month: '%y년 %m월',
-            year: '%Y년'
-          }
+          selected: 1,
+          inputEnabled: false, // it supports only days
         },
         yAxis: [{
           labels: {
@@ -410,24 +386,9 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
         plotOptions: {
           candlestick: {
             lineColor: 'black',
-            color: 'blue',
+            // color: 'blue',
             upColor: 'red',
             upLineColor: 'black',
-            dataGrouping: {
-              dateTimeLabelFormats: {
-                millisecond: ['%m월 %e일, %H:%M:%S.%L', '%A, %b %e, %H:%M:%S.%L', '-%H:%M:%S.%L'],
-                second: ['%m월 %e일, %H:%M:%S', '%A, %b %e, %H:%M:%S', '-%H:%M:%S'],
-                minute: ['%m월 %e일, %H:%M', '%A, %b %e, %H:%M', '-%H:%M'],
-                hour: ['%m월 %e일, %H:%M', '%A, %b %e, %H:%M', '-%H:%M'],
-                day: ['%Y년 %m월 %e일', '%A, %b %e', '-%Y년 %m월 %e일'],
-                week: ['%Y년 %m월 %e일', '%A, %b %e', '-%Y년 %m월 %e일'],
-                month: ['%Y년 %m월', '%B', '-%B %Y'],
-                year: ['%Y년', '%Y', '-%Y']
-              }
-            },
-            tooltip: {
-              pointFormat: '\x3cspan style\x3d"color:{point.color}"/span\x3e \x3c/b\x3e\x3cbr/\x3e시가: \x3cb\x3e{point.open}\x3cbr/\x3e고가: \x3cb\x3e{point.high}\x3cbr/\x3e저가: \x3cb\x3e{point.low}\x3cbr/\x3e종가: \x3cb\x3e{point.close}\x3cbr/\x3e'
-            }
           },
           series: {
             animation: false,

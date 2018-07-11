@@ -144,10 +144,12 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
         title: {},
         rangeSelector: {
           selected: 0,
-          // enabled: false,
           inputEnabled: false,
+          labelStyle: {
+            display: 'none'
+          },
           buttonTheme: {
-            width: 60
+            display: 'none'
           },
           buttons: [{
             type: 'month',

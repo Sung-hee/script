@@ -1,8 +1,6 @@
 var _chart;
-var selected = "http://www.roooot.info/attn/maker.php";
+var selected = "http://www.roooot.info/attn/goldmaker.php";
 
-// 파라메터 정보가 저장될 오브젝트
-// common.js 같은 모든 페이지에서 로딩되는 js 파일에 넣어두면 됨.
 var getParam = function(key) {
   var _parammap = {};
   document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function() {
@@ -24,7 +22,9 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
   $.each(data, function(key, value) {
     json_data += value.code;
   });
+  console.log(json_data);
   var test;
+
   $(function stock() {
     Highcharts.setOptions({
       global: {
@@ -47,14 +47,18 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           const candle = candlesticks[i];
           const volumeBar = volumeBars[i];
 
-          if (candle.close > candle.open) {
-            const color = 'red';
-            volumeBar.color = color;
-            candle.color = color;
-          } else if (candle.close < candle.open) {
-            const color = 'blue';
-            candle.color = color;
-            volumeBar.color = color;
+          try {
+            if (candle.close > candle.open) {
+              const color = 'red';
+              volumeBar.color = color;
+              candle.color = color;
+            } else if (candle.close < candle.open) {
+              const color = 'blue';
+              candle.color = color;
+              volumeBar.color = color;
+            }
+          } catch (exception) {
+            console.log("Error Message: " + exception.message);
           }
         }
       }
@@ -62,16 +66,35 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
     $.getJSON(selected + "?companycode=" + json_data, function(data) {
 
       // split the data set into ohlc and volume
-      var volumeColor = '';
       var ohlc = [],
+        line1 = [],
+        line2 = [],
+        line3 = [],
         volume = [],
+        volume2 = [],
+        volume3 = [],
+        volume4 = [],
         Hsma = [],
         HsmaSum = [],
         SsmaSum = [],
         Ssma = [],
-        dataLength = data.length;
+        dataLength = data.length,
+        // set the allowed units for data grouping
+        groupingUnits = [
+          [
+            'week', // unit name
+            [1] // allowed multiples
+          ],
+          [
+            'month', [1, 2, 3, 4, 6]
+          ]
+        ];
 
-      for (i = 0; i < dataLength; i++) {
+      var sum = [0, 0, 0];
+      var max = 0;
+      min = 0;
+      var avg = 0;
+      for (var i = 0; i < dataLength; i++) {
         ohlc.push([
           data[i][0], // the date
           data[i][1], // open
@@ -79,9 +102,22 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           data[i][3], // low
           data[i][4] // close
         ]);
+
         volume.push([
           data[i][0], // the date
           data[i][5] // the volume
+        ]);
+        volume2.push([
+          data[i][0], // the date
+          data[i][6] // the volume
+        ]);
+        volume3.push([
+          data[i][0], // the date
+          data[i][7] // the volume
+        ]);
+        volume4.push([
+          data[i][0], // the date
+          data[i][8] // the volume
         ]);
         Hsma.push([
           data[i][0],
@@ -91,7 +127,28 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           data[i][0],
           data[i][3]
         ]);
+
+        sum[0] += data[i][6];
+        sum[1] += data[i][7];
+        sum[2] += data[i][8];
+        try {
+          line1.push([
+            data[i][0], // the date
+            sum[0] // the volume
+          ]);
+          line2.push([
+            data[i][0], // the date
+            sum[1] // the volume
+          ]);
+          line3.push([
+            data[i][0], // the date
+            sum[2] // the volume
+          ]);
+        } catch (error) {
+          console.error(i + " : " + error.message);
+        }
       }
+
       var Hresult = 0;
       var Hcusma = 0;
       var Sresult = 0;
@@ -114,14 +171,108 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
       HsmaSum = HsmaSum.reverse();
       SsmaSum = SsmaSum.reverse();
 
-      _chart = new Highcharts.StockChart({
+      var series = [{
+        type: 'candlestick',
+        name: 'AAPL',
+        id: 'price',
+        data: ohlc,
+        dataGrouping: {
+          groupPixelWidth: 500
+        }
+      }, {
+        type: 'column',
+        name: '거래량',
+        id: 'volume',
+        data: volume,
+        color: 'green',
+        yAxis: 2,
+        dataGrouping: {
+          groupPixelWidth: 500
+        }
+      }, {
+        type: 'line',
+        name: '개인 누적',
+        data: line1,
+        color: '#0080FF',
+        yAxis: 1,
+        zIndex: 3,
+        dataGrouping: {
+          groupPixelWidth: 500
+        },
+      }, {
+        type: 'line',
+        name: '기관 누적',
+        data: line2,
+        color: '#000000',
+        yAxis: 1,
+        zIndex: 3,
+        dataGrouping: {
+          groupPixelWidth: 500
+        }
+      }, {
+        type: 'line',
+        name: '외국인 누적',
+        data: line3,
+        color: '#FB9804',
+        yAxis: 1,
+        zIndex: 3,
+        dataGrouping: {
+          groupPixelWidth: 500
+        }
+      }, {
+        type: 'column',
+        name: '개인',
+        data: volume2,
+        color: '#0080FF',
+        yAxis: 3,
+        dataGrouping: {
+          groupPixelWidth: 500
+        }
+      }, {
+        type: 'column',
+        name: '기관',
+        data: volume3,
+        color: '#000000',
+        yAxis: 3,
+        dataGrouping: {
+          groupPixelWidth: 500
+        }
+      }, {
+        type: 'column',
+        name: '외국인',
+        data: volume4,
+        color: '#FB9804',
+        yAxis: 3,
+        dataGrouping: {
+          groupPixelWidth: 500
+        }
+      }, {
+        name: '황금추세 상선',
+        data: HsmaSum,
+        zIndex: 1,
+        color: '#FF607B',
+        tooltip: {
+          valueDecimals: 0
+        },
+      }, {
+        name: '황금추세 하선',
+        data: SsmaSum,
+        zIndex: 1,
+        color: '#5F7AFF',
+        tooltip: {
+          valueDecimals: 0
+        }
+      }];
+
+      // create the chart
+      _chart = new Highcharts.stockChart({
         chart: {
           resetZoomButton: {
             theme: {
               display: 'none'
             }
           },
-          zoomType: null,
+          // zoomType: null,
           // panning을 지워야 웹에서 드래그가 됨 !
           panning: false,
           renderTo: 'container',
@@ -157,11 +308,11 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
                   }
 
                   // Choose the color for the volume point based on the candle properties.
-                  var color = '#8ADAA2';
+                  var color = 'rgba(89, 203, 123, 0.70)';
                   if (candle.close > candle.open) {
-                    color = '#8ADAA2';
+                    color = 'rgba(89, 203, 123, 0.70)';
                   } else if (candle.close < candle.open) {
-                    color = '#8ADAA2';
+                    color = 'rgba(89, 203, 123, 0.70)';
                   }
                   // Set the volume point's attribute(s) accordingly.
                   attribs.fill = color;
@@ -175,21 +326,6 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
             },
           }
         },
-        title: {},
-        rangeSelector: {
-          selected: 0,
-          // enabled: false,
-          inputEnabled: false,
-          labelStyle: {
-            display: 'none'
-          },
-          buttonTheme: {
-            display: 'none'
-          },
-        },
-        scrollbar: {
-          enabled: false
-        },
         navigator: {
           height: 30,
           series: {
@@ -197,9 +333,15 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
             fillColor: 'white'
           },
         },
-        tooltip: {
-          followPointer: false,
-          followTouchMove: false,
+        rangeSelector: {
+          selected: 1,
+          inputEnabled: false,
+          labelStyle: {
+            display: 'none'
+          },
+          buttonTheme: {
+            display: 'none'
+          },
         },
         xAxis: {
           type: 'datetime',
@@ -219,38 +361,58 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
         yAxis: [{
           labels: {
             align: 'left',
-            x: 5,
-            // format:'{value} %'
+            x: 5
           },
-          height: '80%',
+          height: '50%',
           lineWidth: 2,
           resize: {
             enabled: true
           },
+          tooltip: false
+        }, {
+          labels: {
+            align: 'right',
+            x: -5
+          },
+          top: '50%',
+          height: '34%',
+          offset: 0,
+          lineWidth: 2,
+          opposite: false
         }, {
           labels: {
             align: 'left',
             x: 5
           },
-          top: '80%',
-          height: '20%',
+          top: '50%',
+          height: '34%',
+          offset: 0,
+          lineWidth: 2
+        }, {
+          labels: {
+            align: 'left',
+            x: 5
+          },
+          top: '85%',
+          height: '15%',
           offset: 0,
           lineWidth: 2
         }],
-        legend: {
-          enabled: false
+
+        tooltip: {
+          // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+          valueDecimals: 0,
+          split: true
         },
-        credits: {
-          enabled: false
-        },
-        exporting: {
-          enabled: false
-        },
+        // tooltip: {
+        //     split: true
+        // },
+
         plotOptions: {
           candlestick: {
             lineColor: 'black',
-            upColor: 'red',
             color: 'blue',
+            upColor: 'red',
             upLineColor: 'black',
             dataGrouping: {
               dateTimeLabelFormats: {
@@ -275,38 +437,13 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
                 ['day', [1]]
               ]
             },
+          },
+          line: {
+            animation: false,
+            lineWidth: 3
           }
         },
-        series: [{
-          type: 'candlestick',
-          name: 'AAPL',
-          id: 'price',
-          zIndex: 2,
-          data: ohlc
-        }, {
-          type: 'column',
-          name: '거래량',
-          id: 'volume',
-          data: volume,
-          yAxis: 1,
-          turboThreshold: Number.MAX_VALUE
-        }, {
-          name: '황금추세 상선',
-          data: HsmaSum,
-          zIndex: 1,
-          color: '#FF607B',
-          tooltip: {
-            valueDecimals: 0
-          },
-        }, {
-          name: '황금추세 하선',
-          data: SsmaSum,
-          zIndex: 1,
-          color: '#5F7AFF',
-          tooltip: {
-            valueDecimals: 0
-          },
-        }]
+        series: series
       });
     });
   });
@@ -319,16 +456,35 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
       async: true,
       success: function(data) {
         // split the data set into ohlc and volume
-        var volumeColor = '';
         var ohlc = [],
+          line1 = [],
+          line2 = [],
+          line3 = [],
           volume = [],
-          Hsma = [],
-          HsmaSum = [],
-          SsmaSum = [],
-          Ssma = [],
-          dataLength = data.length;
+          volume2 = [],
+          volume3 = [],
+          volume4 = [],
+          dataLength = data.length,
+					Hsma = [],
+					HsmaSum = [],
+					SsmaSum = [],
+					Ssma = [],
+          // set the allowed units for data grouping
+          groupingUnits = [
+            [
+              'week', // unit name
+              [1] // allowed multiples
+            ],
+            [
+              'month', [1, 2, 3, 4, 6]
+            ]
+          ];
 
-        for (i = 0; i < dataLength; i++) {
+        var sum = [0, 0, 0];
+        var max = 0;
+        min = 0;
+        var avg = 0;
+        for (var i = 0; i < dataLength; i++) {
           ohlc.push([
             data[i][0], // the date
             data[i][1], // open
@@ -336,9 +492,22 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
             data[i][3], // low
             data[i][4] // close
           ]);
+
           volume.push([
             data[i][0], // the date
             data[i][5] // the volume
+          ]);
+          volume2.push([
+            data[i][0], // the date
+            data[i][6] // the volume
+          ]);
+          volume3.push([
+            data[i][0], // the date
+            data[i][7] // the volume
+          ]);
+          volume4.push([
+            data[i][0], // the date
+            data[i][8] // the volume
           ]);
           Hsma.push([
             data[i][0],
@@ -348,7 +517,28 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
             data[i][0],
             data[i][3]
           ]);
+
+          sum[0] += data[i][6];
+          sum[1] += data[i][7];
+          sum[2] += data[i][8];
+          try {
+            line1.push([
+              data[i][0], // the date
+              sum[0] // the volume
+            ]);
+            line2.push([
+              data[i][0], // the date
+              sum[1] // the volume
+            ]);
+            line3.push([
+              data[i][0], // the date
+              sum[2] // the volume
+            ]);
+          } catch (error) {
+            console.error(i + " : " + error.message);
+          }
         }
+
         var Hresult = 0;
         var Hcusma = 0;
         var Sresult = 0;
@@ -367,18 +557,24 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           Scusma = 0;
           HsmaSum.push([Hsma[i][0], Hresult]);
           SsmaSum.push([Ssma[i][0], Sresult]);
-
         }
         HsmaSum = HsmaSum.reverse();
         SsmaSum = SsmaSum.reverse();
 
         _chart.series[0].setData(ohlc);
-        _chart.series[1].setData(volume);
-        _chart.series[2].setData(HsmaSum);
-        _chart.series[3].setData(SsmaSum);
+				_chart.series[1].setData(volume);
+				_chart.series[2].setData(line1);
+				_chart.series[3].setData(line2);
+				_chart.series[4].setData(line3);
+				_chart.series[5].setData(volume2);
+        _chart.series[6].setData(volume3);
+				_chart.series[7].setData(volume4);
+				_chart.series[8].setData(HsmaSum);
+				_chart.series[9].setData(SsmaSum);
       },
       cache: false
     });
+    console.log("ajax 호출");
   }
   $(document).ready(function() {
     $('input[name=buttons]').change(function() {

@@ -1,5 +1,5 @@
 var _chart;
-var selected = "http://13.124.230.32/phps/marketPower";
+var selected = "http://www.roooot.info/phps/marketPowerT.php";
 
 $(function stock() {
   Highcharts.setOptions({
@@ -77,6 +77,7 @@ $(function stock() {
         data[i][6],
         data[i][7]
       ]);
+      // console.log(volume);
     }
     var Hresult = 0;
     var Hcusma = 0;
@@ -121,6 +122,7 @@ $(function stock() {
     gHsmaSum = gHsmaSum.reverse();
     gSsmaSum = gSsmaSum.reverse();
 
+    console.log("차트 데이터 저장");
     _chart = new Highcharts.StockChart({
       chart: {
         resetZoomButton: {
@@ -185,13 +187,9 @@ $(function stock() {
       title: {},
       rangeSelector: {
         buttons: [{
-          count: 10,
+          count: 1,
           type: 'minute',
-          text: '10분'
-        }, {
-          count: 30,
-          type: 'minute',
-          text: '30분'
+          text: '1M'
         }, {
           count: 60,
           type: 'minute',
@@ -200,7 +198,7 @@ $(function stock() {
           type: 'all',
           text: 'All'
         }],
-        selected: 2,
+        selected: 1,
         inputEnabled: false,
         labelStyle: {
           display: 'none'
@@ -365,6 +363,8 @@ $(function stock() {
         }
       }]
     });
+    // console.log(data[2])
+    console.log("차트그리기");
   });
 
   function ftest() {
@@ -412,6 +412,7 @@ $(function stock() {
             data[i][6],
             data[i][7]
           ]);
+          // console.log(volume);
         }
         var Hresult = 0;
         var Hcusma = 0;
@@ -462,6 +463,7 @@ $(function stock() {
         _chart.series[4].setData(SsmaSum);
         _chart.series[5].setData(gHsmaSum);
         _chart.series[6].setData(gSsmaSum);
+        // console.log(data);
       },
       cache: false
     });
