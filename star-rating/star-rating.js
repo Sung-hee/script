@@ -15,7 +15,7 @@ var companycode = getParam("name");
 
 
 $(document).ready(function(){
-  $.getJSON('http://13.124.230.32/phps/now?name=' + companycode, function(data){
+  $.getJSON('http://www.roooot.info/phps/now.php?name=' + companycode, function(data){
     var json_data = '';
 
     $.each(data, function(key, value){
@@ -37,7 +37,7 @@ $(document).ready(function(){
     $('#company_score').append(json_data);
   });
 
-  $.getJSON('http://13.124.230.32/phps/now?name=' + companycode, function(data){
+  $.getJSON('http://www.roooot.info/phps/now.php?name=' + companycode, function(data){
     var score_data = '';
     score_data += '<div class="row text-center">';
 
@@ -47,37 +47,37 @@ $(document).ready(function(){
       score_data += '<div class="card-body d-inline-block text-center"><div class="h4">파워등급</div>';
 
       if(value.power == "1 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade1" class="rounded d-inline-block" alt="1등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade1.png" class="rounded d-inline-block" alt="1등급">';
       }
       else if (value.power == "1.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade2" class="rounded d-inline-block" alt="1.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade2.png" class="rounded d-inline-block" alt="1.5등급">';
       }
       else if(value.power == "2 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade3" class="rounded d-inline-block" alt="2등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade3.png" class="rounded d-inline-block" alt="2등급">';
       }
       else if (value.power == "2.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade4" class="rounded d-inline-block" alt="2.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade4.png" class="rounded d-inline-block" alt="2.5등급">';
       }
       else if(value.power == "3 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade5" class="rounded d-inline-block" alt="3등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade5.png" class="rounded d-inline-block" alt="3등급">';
       }
       else if (value.power == "3.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade6" class="rounded d-inline-block" alt="3.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade6.png" class="rounded d-inline-block" alt="3.5등급">';
       }
       else if(value.power == "4 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade7" class="rounded d-inline-block" alt="4등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade7.png" class="rounded d-inline-block" alt="4등급">';
       }
       else if (value.power == "4.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade8" class="rounded d-inline-block" alt="4.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade8.png" class="rounded d-inline-block" alt="4.5등급">';
       }
       else if(value.power == "5 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade9" class="rounded d-inline-block" alt="5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade9.png" class="rounded d-inline-block" alt="5등급">';
       }
       else if (value.power == "5.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade10" class="rounded d-inline-block" alt="5.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade10.png" class="rounded d-inline-block" alt="5.5등급">';
       }
       else {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade11" class="rounded d-inline-block" alt="낙제">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade11.png" class="rounded d-inline-block" alt="낙제">';
       }
       score_data += '<div class="h5">' + value.power + '</div></div>';
 
@@ -85,37 +85,37 @@ $(document).ready(function(){
       score_data += '<div class="card-body d-inline-block text-center"><div class="h4">수급등급</div>';
 
       if(value.supl == "1 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade1" class="rounded d-inline-block" alt="1등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade1.png" class="rounded d-inline-block" alt="1등급">';
       }
       else if (value.supl == "1.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade2" class="rounded d-inline-block" alt="1.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade2.png" class="rounded d-inline-block" alt="1.5등급">';
       }
       else if(value.supl == "2 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade3" class="rounded d-inline-block" alt="2등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade3.png" class="rounded d-inline-block" alt="2등급">';
       }
       else if (value.supl == "2.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade4" class="rounded d-inline-block" alt="2.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade4.png" class="rounded d-inline-block" alt="2.5등급">';
       }
       else if(value.supl == "3 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade5" class="rounded d-inline-block" alt="3등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade5.png" class="rounded d-inline-block" alt="3등급">';
       }
       else if (value.supl == "3.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade6" class="rounded d-inline-block" alt="3.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade6.png" class="rounded d-inline-block" alt="3.5등급">';
       }
       else if(value.supl == "4 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade7" class="rounded d-inline-block" alt="4등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade7.png" class="rounded d-inline-block" alt="4등급">';
       }
       else if (value.supl == "4.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade8" class="rounded d-inline-block" alt="4.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade8.png" class="rounded d-inline-block" alt="4.5등급">';
       }
       else if(value.supl == "5 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade9" class="rounded d-inline-block" alt="5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade9.png" class="rounded d-inline-block" alt="5등급">';
       }
       else if (value.supl == "5.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade10" class="rounded d-inline-block" alt="5.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade10.png" class="rounded d-inline-block" alt="5.5등급">';
       }
       else {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade11" class="rounded d-inline-block" alt="낙제">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade11.png" class="rounded d-inline-block" alt="낙제">';
       }
       score_data += '<div class="h5">' + value.supl + '</div></div>';
 
@@ -123,37 +123,37 @@ $(document).ready(function(){
       score_data += '<div class="card-body d-inline-block text-center"><div class="h4">실적등급</div>';
 
       if(value.perform == "1 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade1" class="rounded d-inline-block" alt="1등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade1.png" class="rounded d-inline-block" alt="1등급">';
       }
       else if (value.perform == "1.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade2" class="rounded d-inline-block" alt="1.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade2.png" class="rounded d-inline-block" alt="1.5등급">';
       }
       else if(value.perform == "2 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade3" class="rounded d-inline-block" alt="2등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade3.png" class="rounded d-inline-block" alt="2등급">';
       }
       else if (value.perform == "2.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade4" class="rounded d-inline-block" alt="2.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade4.png" class="rounded d-inline-block" alt="2.5등급">';
       }
       else if(value.perform == "3 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade5" class="rounded d-inline-block" alt="3등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade5.png" class="rounded d-inline-block" alt="3등급">';
       }
       else if (value.perform == "3.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade6" class="rounded d-inline-block" alt="3.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade6.png" class="rounded d-inline-block" alt="3.5등급">';
       }
       else if(value.perform == "4 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade7" class="rounded d-inline-block" alt="4등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade7.png" class="rounded d-inline-block" alt="4등급">';
       }
       else if (value.perform == "4.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade8" class="rounded d-inline-block" alt="4.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade8.png" class="rounded d-inline-block" alt="4.5등급">';
       }
       else if(value.perform == "5 등급"){
-        score_data += '<img src="http://13.124.230.32/images/gay/grade9" class="rounded d-inline-block" alt="5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade9.png" class="rounded d-inline-block" alt="5등급">';
       }
       else if (value.perform == "5.5 등급") {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade10" class="rounded d-inline-block" alt="5.5등급">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade10.png" class="rounded d-inline-block" alt="5.5등급">';
       }
       else {
-        score_data += '<img src="http://13.124.230.32/images/gay/grade11" class="rounded d-inline-block" alt="낙제">';
+        score_data += '<img src="http://www.roooot.info/images/gay/grade11.png" class="rounded d-inline-block" alt="낙제">';
       }
       score_data += '<div class="h5">' + value.perform + '</div></div>';
     });

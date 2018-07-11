@@ -1,5 +1,5 @@
 var _chart;
-var selected = "http://13.124.230.32/phps/giftChart";
+var selected = "http://www.roooot.info/phps/giftChart.php";
 
 $(function stock(){
   Highcharts.setOptions({
@@ -124,7 +124,9 @@ $(function stock(){
             display: 'none'
           }
         },
+        zoomType: null,
         panning: false,
+        followTouchMove: false,
         renderTo: 'container',
         events: {
           redraw: redraw,

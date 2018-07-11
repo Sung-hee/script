@@ -26,7 +26,7 @@ var power = getParams('power');
 var supply = getParams('supply');
 var value = getParams('value');
 var perfomance = getParams('performance');
-var url = 'http://13.124.230.32/phps/stock_table';
+var url = 'http://www.roooot.info/phps/stock_table.php';
 var height = ($(window).height()*0.888)-280;
 
 $(document).ready(function(){

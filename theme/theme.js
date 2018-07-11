@@ -26,9 +26,9 @@ function pxToRem(px){
 
 var theme = getParams('theme');
 var stock = getParams('stock');
-var todayThemeUrl = 'http://13.124.230.32/phps/todayThemeJ';
-var themeUrl = 'http://13.124.230.32/phps/themeNowJ';
-var stockUrl = 'http://13.124.230.32/phps/elementNowJ';
+var todayThemeUrl = 'http://www.roooot.info/phps/todayThemeJ.php';
+var themeUrl = 'http://www.roooot.info/phps/themeNowJ.php';
+var stockUrl = 'http://www.roooot.info/phps/elementNowJ.php';
 var re = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\(\=]/gi;
 var deTheme = decodeURIComponent(theme);
 var deStock = decodeURIComponent(stock);

@@ -7,7 +7,7 @@ $(function stock(){
   });
   function ftest(){
     $.ajax({
-      url: 'http://13.124.230.32/phps/marketPower',
+      url: 'http://www.roooot.info/phps/marketPower',
       type: "GET",
       dataType: "json",
       async: true,
@@ -18,7 +18,7 @@ $(function stock(){
     });
     console.log("ajax 호출");
   }
-  $.getJSON('http://13.124.230.32/phps/marketPower' , function (data) {
+  $.getJSON('http://www.roooot.info/phps/marketPower' , function (data) {
 
       _chart = new Highcharts.stockChart('container', {
 

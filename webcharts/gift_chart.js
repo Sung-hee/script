@@ -1,5 +1,5 @@
 var _chart;
-var selected = "http://13.124.230.32/phps/giftChart";
+var selected = "http://www.roooot.info/phps/giftChart.php";
 
 $(function stock(){
   Highcharts.setOptions({
@@ -24,14 +24,19 @@ $(function stock(){
           const candle = candlesticks[i];
           const volumeBar = volumeBars[i];
 
-          if (candle.close > candle.open) {
-            const color = 'red';
-            volumeBar.color = color;
-            candle.color = color;
-          } else if (candle.close < candle.open) {
-            const color = 'blue';
-            candle.color = color;
-            volumeBar.color = color;
+          try {
+            if (candle.close > candle.open) {
+              const color = '#FF0000';
+              volumeBar.color = color;
+              candle.color = color;
+            } else if (candle.close < candle.open) {
+              const color = '#0000FF';
+              candle.color = color;
+              volumeBar.color = color;
+            }
+          }
+          catch (exception) {
+            console.log("Error Message: " + exception.message);
           }
         }
       }
@@ -102,11 +107,11 @@ $(function stock(){
                 }
 
                 // Choose the color for the volume point based on the candle properties.
-                var color = 'blue';
+                var color = '#0000FF';
                 if (candle.close > candle.open) {
-                  color = 'red';
+                  color = '#FF0000';
                 } else if (candle.close < candle.open) {
-                  color = 'blue';
+                  color = '#0000FF';
                 }
                 // Set the volume point's attribute(s) accordingly.
                 attribs.fill = color;
@@ -116,7 +121,7 @@ $(function stock(){
             })(volSeries.pointAttribs);
             // Need to call update so the changes get taken into account on first draw.
             this.update({});
-            test= setInterval(ftest, 5000);
+            test= setInterval(ftest, 3000);
           }
         }
       },

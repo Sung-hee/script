@@ -1,5 +1,5 @@
 var _chart;
-var selected = "http://13.124.230.32/attn/maker.php";
+var selected = "http://www.roooot.info/attn/maker.php";
 
 function clearAll(){
   var max = setTimeout(function(){},1);
@@ -25,7 +25,7 @@ var getParam = function(key){
 
 var companycode = getParam("name");
 
-$.getJSON("http://13.124.230.32/phps/now?name=" + companycode, function(data){
+$.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(data){
   var json_data = "";
 
   $.each(data, function(key, value){
@@ -328,7 +328,7 @@ $.getJSON("http://13.124.230.32/phps/now?name=" + companycode, function(data){
     });
     console.log("ajax 호출");
   }
-  $.getJSON('http://13.124.230.32/phps/now?name=' + companycode, function(data){
+  $.getJSON('http://www.roooot.info/phps/now.php?name=' + companycode, function(data){
     var json_data = '';
     var split_data = '';
 
@@ -369,7 +369,7 @@ $.getJSON("http://13.124.230.32/phps/now?name=" + companycode, function(data){
     $('#company_score').append(json_data);
   });
 
-  $.getJSON('http://13.124.230.32/phps/newsNowJ?name=' + companycode, function(data){
+  $.getJSON('http://www.roooot.info/phps/newsNowJ.php?name=' + companycode, function(data){
     var json_data = '';
 
     json_data += '<tbody>'

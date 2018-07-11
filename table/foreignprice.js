@@ -9,7 +9,7 @@ function clearAll(){
 
   function foreignAjax(){
     $.ajax({
-      url: "http://13.124.230.32/phps/forNowJ",
+      url: "http://www.roooot.info/phps/forNowJ.php",
       type: "GET",
       dataType: "json",
       async: true,

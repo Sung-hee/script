@@ -1,5 +1,5 @@
 var _chart;
-var selected = "http://13.124.230.32/attn/maker";
+var selected = "http://www.roooot.info/attn/maker.php";
 
 var getParam = function(key){
     var _parammap = {};
@@ -16,7 +16,7 @@ var getParam = function(key){
 
 var companycode = getParam("name");
 
-$.getJSON("http://13.124.230.32/phps/now?name=" + companycode, function(data){
+$.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(data){
   var json_data = "";
 
   $.each(data, function(key, value){
