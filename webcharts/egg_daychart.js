@@ -22,7 +22,7 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
   $.each(data, function(key, value) {
     json_data += value.code;
   });
-  console.log(json_data);
+
   var test;
 
   $(function stock() {
@@ -574,7 +574,6 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
       },
       cache: false
     });
-    console.log("ajax 호출");
   }
   $(document).ready(function() {
     $('input[name=buttons]').change(function() {

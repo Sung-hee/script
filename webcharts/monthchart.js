@@ -281,8 +281,11 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           dataGrouping: {
             groupPixelWidth: 500
           },
+          tooltip: {
+            valueDecimals: 0
+          }
         }, {
-          type: 'sma20',
+          type: 'sma',
           name: '이평선 (20)',
           linkedTo: 'price',
           zIndex: 1,
@@ -291,9 +294,16 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           },
           dataGrouping: {
             groupPixelWidth: 500
+          },
+          params: {
+              index: 0,
+              period: 20
+          },
+          tooltip: {
+            valueDecimals: 0
           }
         }, {
-          type: 'sma60',
+          type: 'sma',
           name: '이평선 (60)',
           linkedTo: 'price',
           zIndex: 1,
@@ -302,9 +312,16 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           },
           dataGrouping: {
             groupPixelWidth: 500
+          },
+          params: {
+              index: 0,
+              period: 60
+          },
+          tooltip: {
+            valueDecimals: 0
           }
         }, {
-          type: 'sma120',
+          type: 'sma',
           name: '이평선 (120)',
           linkedTo: 'price',
           zIndex: 1,
@@ -313,6 +330,13 @@ $.getJSON("http://www.roooot.info/phps/now.php?name=" + companycode, function(da
           },
           dataGrouping: {
             groupPixelWidth: 500
+          },
+          params: {
+              index: 0,
+              period: 120
+          },
+          tooltip: {
+            valueDecimals: 0
           }
         }]
       });
