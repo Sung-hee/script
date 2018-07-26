@@ -1,55 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://code.highcharts.com/stock/highstock.js"></script>
-    <script src="https://code.highcharts.com/stock/highcharts-more.js"></script>
-    <script src="C:\Users\User\Hee\WebProject\webcharts\testChart\giftChart(golden).js" charset="utf-8"></script>
-  </head>
-  <body>
-   <div class="table" id="chart">
-      <button type="button" class="btn btn-danger" style="width:23%; font-size:15px; background-color:#e32837">고</br>&nbsp</button>
-      <button type="button" class="btn btn-warning" style="width:23%; font-size:15px; background-color:#ffcb1a">C1</br>&nbsp</button>
-      <button type="button" class="btn btn-primary" style="width:23%; font-size:15px; background-color:#1a78ff">저</br>&nbsp</button>
-      <button type="button" class="btn btn-dark" style="width:23%; font-size:15px; background-color:#282d31">세력지수</br>&nbsp</button>
-      </br></br>
-    </div>
-    <div id="container" style="height: 60rem; min-width: 310px"></div>
-  </body>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	 crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	 crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	 crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.highcharts.com/stock/highstock.js"></script>
+	<script src="https://code.highcharts.com/stock/highcharts-more.js"></script>
+	<script src="C:\Users\User\Hee\testChart\giftChart(golden).js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="table" id="chart">
+		<button type="button" class="btn btn-danger" style="width:24.5%; font-size:1.25em; background-color:#e32837">
+			<p style="margin: 0;">고</p>
+			<p id="high" style="margin: 0;">&nbsp</p>
+		</button>
+		<button type="button" class="btn btn-warning" style="width:24.5%; font-size:1.25em; background-color:#ffcb1a">
+			<p style="margin: 0;">C1</p>
+			<p id="c1" style="margin: 0;">&nbsp</p>
+		</button>
+		<button type="button" class="btn btn-primary" style="width:24.5%; font-size:1.25em; background-color:#1a78ff">
+			<p style="margin: 0;">저</p>
+			<p id="low" style="margin: 0;">&nbsp</p>
+		</button>
+		<button type="button" class="btn btn-dark" style="width:24.5%; font-size:1.25em; background-color:#282d31">
+			<p style="margin: 0;">세력지수</p>
+			<p id="power" style="margin: 0;">&nbsp</p>
+		</button>
+		</br>
+		</br>
+	</div>
+	<div id="container" style="height: 60rem; min-width: 310px"></div>
+</body>
+
 </html>
 
 <script>
-  var height = $(window).height()*0.888;
-  var ctest;
-  $(document).ready(function() {
-  ctest = setInterval(ajaxtable, 5000);
-  });
-  function ajaxtable(){
-    $.ajax({
-      url: "http://13.124.230.32/phps/c1c2.php",
-      type: "GET",
-      dataType: "json",
-      async: false,
-      success: function(data) {
-        var json_data = '';
-        $.each(data, function(key, value){
-          json_data += '<button type="button" class="btn btn-danger" style="width:25%; font-size:15px; background-color:#e32837;">'+'고'+'</br>'+value.dayc1high+'</button>';
-          json_data += '<button type="button" class="btn btn-warning" style="width:25%; font-size:15px; background-color:#ffcb1a;">'+value.c1+'</br>'+value.c1high+'</button>';
-          json_data += '<button type="button" class="btn btn-primary" style="width:25%; font-size:15px; background-color:#1a78ff;">'+'저'+'</br>'+value.dayc1low+'</button>';
-          json_data += '<button type="button" class="btn btn-dark" style="width:25%; font-size:15px; background-color:#282d31;">'+'세력지수'+'</br>'+value.power+'</button>';
-        });
-        $('#chart').html(json_data);
-      }
-    });
-  }
-  $(document).ready(function(){
-    $('input[name=buttons]').change(function() {
-      clearInterval(ctest);
-    });
-  });
-</script>
+	var height = $(window).height() * 0.888;
+	var ctest;
+	$(document).ready(function () {
+		ctest = setInterval(ajaxtable, 5000);
+	});
+	function ajaxtable() {
+		$.ajax({
+			url: "http://13.124.230.32/phps/c1c2.php",
+			type: "GET",
+			dataType: "json",
+			async: false,
+			success: function (data) {
+				$.each(data, function (key, value) {
+					$('#high').html(value.dayc1high);
+					$('#c1').html(value.c1high);
+					$('#low').html(value.dayc1low);
+					$('#power').html(value.power);
+				});
+			}
+		});
+	}
+	$(document).ready(function () {
+		$('input[name=buttons]').change(function () {
+			clearInterval(ctest);
+		});
+	});
+
+	var agent = navigator.userAgent.toLowerCase();
+
+	if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+		console.log("인터넷 익스플로러 브라우저 입니다.");
+		window.open('https://www.google.co.kr/chrome/', 'newWindow');
+	}
+	else {
+		alert("인터넷 익스플로러 브라우저가 아닙니다. 크롬 설치 후 이용해주세요.");
+	}
+	</script>

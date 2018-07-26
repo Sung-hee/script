@@ -24,15 +24,20 @@ $(function stock() {
         const candle = candlesticks[i];
         const volumeBar = volumeBars[i];
 
-        if (candle.close > candle.open) {
-          const color = 'red';
-          volumeBar.color = color;
-          candle.color = color;
-        } else if (candle.close < candle.open) {
-          const color = 'blue';
-          candle.color = color;
-          volumeBar.color = color;
-        }
+        try {
+					if (candle.close > candle.open) {
+						const color = 'red';
+						volumeBar.color = color;
+						candle.color = color;
+					} else if (candle.close < candle.open) {
+						const color = 'blue';
+						candle.color = color;
+						volumeBar.color = color;
+					}
+				}
+				catch (exception) {
+					console.log("Error Message: " + exception.message);
+				}
       }
     }
   };
@@ -77,7 +82,6 @@ $(function stock() {
         data[i][6],
         data[i][7]
       ]);
-      // console.log(volume);
     }
     var Hresult = 0;
     var Hcusma = 0;
@@ -122,7 +126,6 @@ $(function stock() {
     gHsmaSum = gHsmaSum.reverse();
     gSsmaSum = gSsmaSum.reverse();
 
-    console.log("차트 데이터 저장");
     _chart = new Highcharts.StockChart({
       chart: {
         resetZoomButton: {
@@ -167,10 +170,14 @@ $(function stock() {
 
                 // Choose the color for the volume point based on the candle properties.
                 var color = 'rgba(0, 0, 255, 0.60)';
-                if (candle.close > candle.open) {
-                  color = 'rgba(255, 0, 0, 0.60)';
-                } else if (candle.close < candle.open) {
-                  color = 'rgba(0, 0, 255, 0.60)';
+                try {
+                  if (candle.close > candle.open) {
+                    color = 'rgba(255, 0, 0, 0.60)';
+                  } else if (candle.close < candle.open) {
+                    color = 'rgba(0, 0, 255, 0.60)';
+                  }
+                } catch (erro) {
+                  console.error(error.message);
                 }
                 // Set the volume point's attribute(s) accordingly.
                 attribs.fill = color;
@@ -220,6 +227,16 @@ $(function stock() {
       tooltip: {
         followPointer: false,
         followTouchMove: false,
+        dateTimeLabelFormats: {
+          millisecond:"%m월, %e일, %H:%M:%S.%L",
+          second:"%m월, %e일, %H:%M:%S",
+          minute:"%m월, %e일, %H:%M",
+          hour:"%m월, %e일, %H:%M",
+          day:"%m월, %e일, %Y",
+          week:"%Y년, %m월, %e일",
+          month:"%Y년 %B",
+          year:"%Y년"
+        }
       },
       xAxis: {
         type: 'datetime',
@@ -363,8 +380,6 @@ $(function stock() {
         }
       }]
     });
-    // console.log(data[2])
-    console.log("차트그리기");
   });
 
   function ftest() {
@@ -412,7 +427,6 @@ $(function stock() {
             data[i][6],
             data[i][7]
           ]);
-          // console.log(volume);
         }
         var Hresult = 0;
         var Hcusma = 0;
@@ -463,11 +477,9 @@ $(function stock() {
         _chart.series[4].setData(SsmaSum);
         _chart.series[5].setData(gHsmaSum);
         _chart.series[6].setData(gSsmaSum);
-        // console.log(data);
       },
       cache: false
     });
-    console.log("ajax 호출");
   }
   $(document).ready(function() {
     $('input[name=buttons]').change(function() {
